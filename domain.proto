@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package kueater;
+
+import "google/protobuf/timestamp.proto";
+import "google/api/resource.proto";
+import "shared.proto";
+
+message Ingredient {
+    option (google.api.resource) = {
+        type: "internal.kueater.com/Ingredient"
+        pattern: "ingredients/{ingredient}"
+        singular: "ingredient"
+        plural: "ingredients"
+    };
+
+    string uuid = 1;
+    LocalizedString name = 2;
+}
+
+message MenuItem {
+    option (google.api.resource) = {
+        type: "internal.kueater.com/MenuItem"
+        pattern: "items/{item}"
+        singular: "item"
+        plural: "items"
+    };
+
+    string uuid = 1;
+    LocalizedString name = 2;
+    double price = 3;
+    repeated Ingredient ingredients = 4;
+}
+
+message Stall {
+    option (google.api.resource) = {
+        type: "internal.kueater.com/Stall"
+        pattern: "stalls/{stall}"
+        singular: "stall"
+        plural: "stalls"
+    };
+
+    string uuid = 1;
+    LocalizedString name = 2;
+    int32 lock = 3;
+    // we can put items here but it is rather optional
+    repeated MenuItem items = 4;
+}
+
+message DietaryRestriction {
+    message Allergy {
+        repeated Ingredient ingredients = 1;
+    }
+
+    message Religious {
+        repeated Ingredient ingredients = 1;
+    }
+
+    Allergy allergy = 1;
+    Religious religious = 2;
+}
+
+message UserProfile {
+    option (google.api.resource) = {
+        type: "internal.kueater.com/UserProfile"
+        pattern: "u/{profile}"
+        singular: "profile"
+        plural: "profiles"
+    };
+
+    message LikedItems {
+        repeated MenuItem items = 1;
+    }
+
+    message LikedStalls {
+        repeated Stall stalls = 2;
+    }
+    
+    string uuid = 1;
+    string name = 2;
+    LikedItems likedItems = 3;
+    LikedStalls likedStalls = 4;
+    DietaryRestriction restraint = 5;
+}
+
+message Review {
+    option (google.api.resource) = {
+        type: "internal.kueater.com/Review"
+        pattern: "r/{review}"
+        singular: "review"
+        plural: "reviews"
+    };
+
+    message ContextItems {
+        repeated MenuItem items = 1;
+    }
+
+    string uuid = 1;
+    UserProfile author = 2;
+    Stall stall = 3;
+    ContextItems context = 4;
+    string content = 5;
+    google.protobuf.Timestamp createdAt = 6;
+    google.protobuf.Timestamp updatedAt = 7;
+}
