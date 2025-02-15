@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package kueater.data;
+
+import "domain.proto";
+
+service KUEaterBackend {
+    rpc GetMenuItem(GetMenuRequest) returns (GetMenuResponse);
+}
+
+message GetMenuRequest {
+    string uuid = 1;
+}
+
+message GetMenuResponse {
+    MenuItem result = 1;
+}
