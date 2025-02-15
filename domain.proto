@@ -30,6 +30,8 @@ message MenuItem {
     LocalizedString name = 2;
     double price = 3;
     repeated Ingredient ingredients = 4;
+    string image = 5;
+    repeated LocalizedString tags = 6;
 }
 
 message Stall {
@@ -45,6 +47,8 @@ message Stall {
     int32 lock = 3;
     // we can put items here but it is rather optional
     repeated MenuItem items = 4;
+    string image = 5;
+    LocalizedString dish_type = 6;
 }
 
 message DietaryRestriction {

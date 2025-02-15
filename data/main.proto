@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package kueater.data;
+
+import "domain.proto";
+import "data/index.proto";
+import "data/search.proto";
+
+service KUEaterBackend {
+    rpc GetMenuItem(GetMenuRequest) returns (GetMenuResponse);
+    rpc GetStall(GetStallRequest) returns (GetStallResponse);
+    rpc GetReview(GetReviewRequest) returns (GetReviewResponse);
+
+    // Index page
+    rpc IndexGetMenuListings(kueater.data.index.GetMenuListingsRequest) returns (kueater.data.index.GetMenuListingsResponse);
+    rpc IndexTopMenu(kueater.data.index.TopMenuRequest) returns (kueater.data.index.TopMenu);
+
+    // Search page
+    rpc Search(kueater.data.search.SearchRequest) returns (kueater.data.search.SearchResponse);
+}
+
+// Singular Item Lookups
+
+message GetMenuRequest {
+    string uuid = 1;
+}
+
+message GetMenuResponse {
+    kueater.MenuItem item = 1;
+}
+
+message GetStallRequest {
+    string uuid = 1;
+}
+
+message GetStallResponse {
+    kueater.Stall stall = 1;
+}
+
+message GetReviewRequest {
+    string uuid = 1;
+}
+
+message GetReviewResponse {
+    kueater.Review review = 1;
+}

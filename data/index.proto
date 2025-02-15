@@ -1,0 +1,59 @@
+// This proto file is for index page
+
+syntax = "proto3";
+
+package kueater.data.index;
+
+import "shared.proto";
+import "domain.proto";
+
+enum SortStrategy {
+    DEFAULT = 0;            // by user score
+    POPULARITY = 1;         // people are currently viewing/reviewing
+    REVIEW_SCORE = 2;       // best review score + review count
+}
+
+message CardedMenuItem {
+    kueater.MenuItem item = 1;
+    kueater.LocalizedString stall_name = 2;
+    int32 stall_lock = 3;
+    int32 likes = 4;
+    bool liked_by_user = 5;
+    bool disliked_by_user = 6;
+    bool favorite_by_user = 7;
+}
+
+message CardedStall {
+    kueater.Stall stall = 1;
+    int32 review_count = 2;
+    int32 like_count = 3;
+    double rating = 4;
+    int32 min_price = 5;
+    int32 max_price = 6;
+    bool favorite_by_user = 7;
+}
+
+message GetMenuListingsRequest {
+    // Paginated listings
+
+    string user = 1;            // user uuid, required
+    int32 page_size = 2;
+    string page_token = 3;      // optional, omit to generate new listings
+    SortStrategy sorting = 4;
+    bool reversed_sort = 5;     // reverse sorting
+}
+
+message GetMenuListingsResponse {
+    repeated CardedMenuItem items = 1;
+    string next_page_token = 2;
+}
+
+message TopMenuRequest { /* Blank message for compatibility */ }
+message TopMenu {
+    message RankedCardedMenuItem {
+        CardedMenuItem item = 1;
+        int32 rank = 2;
+    }
+
+    repeated RankedCardedMenuItem items = 1;
+}

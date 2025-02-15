@@ -1,0 +1,55 @@
+// This proto file is for search
+
+syntax = "proto3";
+
+package kueater.data.search;
+
+import "shared.proto";
+import "domain.proto";
+
+enum SortStrategy {
+    DEFAULT = 0;            // by user score
+    POPULARITY = 1;         // people are currently viewing/reviewing
+    REVIEW_SCORE = 2;       // best review score + review count
+}
+
+message CardedMenuItem {
+    kueater.MenuItem item = 1;
+    kueater.LocalizedString stall_name = 2;
+    int32 stall_lock = 3;
+    int32 likes = 4;
+    bool liked_by_user = 5;
+    bool disliked_by_user = 6;
+    bool favorite_by_user = 7;
+}
+
+message CardedStall {
+    kueater.Stall stall = 1;
+    int32 review_count = 2;
+    int32 like_count = 3;
+    double rating = 4;
+    int32 min_price = 5;
+    int32 max_price = 6;
+    bool favorite_by_user = 7;
+}
+
+message SearchRequest {
+    string query = 1;
+    string user = 2;
+    int32 page_size = 3;
+    string page_token = 4;      // optional, omit to generate new listings
+    SortStrategy sorting = 5;
+    bool reversed_sort = 6;     // reverse sorting
+}
+
+message SearchResponse {
+    message SearchResult {
+        oneof result {
+            CardedMenuItem item = 1;
+            CardedStall stall = 2;
+        }
+    }
+
+    repeated SearchResult results = 1;
+    string next_page_token = 2;
+}
