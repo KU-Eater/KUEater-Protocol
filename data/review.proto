@@ -1,0 +1,19 @@
+// This proto file is for reviews
+
+syntax = "proto3";
+
+package kueater.data.review;
+
+import "shared.proto";
+import "domain.proto";
+
+message PostReviewRequest {
+    string author = 1;
+    int32 rating = 2;
+    string stall_id = 3;
+    repeated string item_ids = 4;
+    string content = 5;
+}
+message PostReviewResponse {
+    kueater.Review review = 1;
+}

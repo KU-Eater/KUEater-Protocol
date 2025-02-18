@@ -106,4 +106,5 @@ message Review {
     string content = 5;
     google.protobuf.Timestamp createdAt = 6;
     google.protobuf.Timestamp updatedAt = 7;
+    int32 rating = 8;
 }

@@ -57,3 +57,13 @@ message TopMenu {
 
     repeated RankedCardedMenuItem items = 1;
 }
+
+message TopStallRequest {}
+message TopStall {
+    message RankedCardedStallItem {
+        CardedStall stall = 1;
+        int32 rank = 2;
+    }
+
+    repeated RankedCardedStallItem stalls = 1;
+}

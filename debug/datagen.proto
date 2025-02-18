@@ -1,0 +1,17 @@
+// Protocol for generating data (ex. UserProfile for testing)
+
+syntax = "proto3";
+
+package kueater.debug.datagen;
+
+import "shared.proto";
+import "domain.proto";
+
+message CreateTestUserProfileRequest {
+    string name = 1;
+    repeated string ingredients_allergic = 2;
+    repeated string ingredients_religious = 3;
+}
+message CreateTestUserProfileResponse {
+    string id = 1;
+}
