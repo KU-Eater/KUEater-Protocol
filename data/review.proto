@@ -17,3 +17,11 @@ message PostReviewRequest {
 message PostReviewResponse {
     kueater.Review review = 1;
 }
+
+message ListReviewsRequest {
+    string stall = 1;
+    int32 page_size = 2;
+}
+message ListReviewsResponse {
+    repeated kueater.Review reviews = 1;
+}
