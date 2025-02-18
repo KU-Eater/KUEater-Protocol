@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package kueater.debug;
+
+import "debug/datagen";
+
+service KUEaterDebug {
+    rpc CreateTestUserProfile(
+        kueater.debug.datagen.CreateTestUserProfileRequest
+    ) returns (kueater.debug.datagen.CreateTestUserProfileResponse);
+}
