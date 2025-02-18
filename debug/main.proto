@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package kueater.debug;
 
-import "debug/datagen";
+import "debug/datagen.proto";
 
 service KUEaterDebug {
     rpc CreateTestUserProfile(
