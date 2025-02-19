@@ -41,6 +41,9 @@ message GetMenuListingsRequest {
     string page_token = 3;      // optional, omit to generate new listings
     SortStrategy sorting = 4;
     bool reversed_sort = 5;     // reverse sorting
+
+    // Debug only
+    int32 match_lock = 101;
 }
 
 message GetMenuListingsResponse {
