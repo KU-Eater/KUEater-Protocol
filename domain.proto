@@ -51,19 +51,6 @@ message Stall {
     LocalizedString dish_type = 6;
 }
 
-message DietaryRestriction {
-    message Allergy {
-        repeated Ingredient ingredients = 1;
-    }
-
-    message Religious {
-        repeated Ingredient ingredients = 1;
-    }
-
-    Allergy allergy = 1;
-    Religious religious = 2;
-}
-
 message UserProfile {
     option (google.api.resource) = {
         type: "internal.kueater.com/UserProfile"
@@ -72,19 +59,38 @@ message UserProfile {
         plural: "profiles"
     };
 
-    message LikedItems {
+    message Liked {
         repeated MenuItem items = 1;
+        repeated Stall stalls = 2;
     }
 
-    message LikedStalls {
+    message Saved {
+        repeated MenuItem items = 1;
         repeated Stall stalls = 2;
     }
     
     string uuid = 1;
     string name = 2;
-    LikedItems likedItems = 3;
-    LikedStalls likedStalls = 4;
-    DietaryRestriction restraint = 5;
+    
+    // no reuse of number
+    reserved 3,4,5;
+
+    // 06-20; core objects
+    Liked liked = 6;
+    Saved saved = 7;
+    UserPreferences preferences = 8;
+
+    // 21~; personal information
+    string gender = 21;
+    string role = 22;
+}
+
+message UserPreferences {
+    repeated string diet = 1;
+    repeated string allergies = 2;
+    repeated string cuisines = 3;
+    repeated string dislikedIngredients = 4;
+    repeated string likedItems = 5;
 }
 
 message Review {
