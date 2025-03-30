@@ -9,9 +9,15 @@ import "domain.proto";
 
 message CreateTestUserProfileRequest {
     string name = 1;
-    repeated string ingredients_allergic = 2;
-    repeated string ingredients_religious = 3;
+    reserved 2, 3;
+
+    // use same numbers as UserProfile object
+    UserPreferences preferences = 8;
+
+    string gender = 21;
+    string role = 22;
 }
+
 message CreateTestUserProfileResponse {
     string id = 1;
 }
