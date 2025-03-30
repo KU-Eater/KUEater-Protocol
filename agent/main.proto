@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package kueater.agent;
+
+service KUEaterEmbeddingAgent {
+    // Use for search
+    rpc GetEmbedding(GetEmbeddingRequest) returns (GetEmbeddingResponse);
+    
+    // Use for recommendations
+    rpc NewRecommendations(NewRecommendationsRequest) returns (NewRecommendationsResponse);
+}
+
+message GetEmbeddingRequest {
+    string text = 1;
+}
+
+message GetEmbeddingResponse {
+    // Format: "[m, n, p, q, ...]"
+    string vectors = 1;
+}
+
+message NewRecommendationsRequest {
+    string user_id = 1;
+}
+
+message NewRecommendationsResponse {}
