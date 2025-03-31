@@ -17,10 +17,10 @@ service KUEaterBackend {
     rpc GetPreferences(GetPreferencesRequest) returns (GetPreferencesResponse);
     
     // Generic fetches
-    rpc GetMenuItem(GetMenuItemRequest) return (kueater.data.types.MenuCardProps);
-    rpc GetStall(GetStallRequest) return (kueater.data.types.StallDataTypeProps);
+    rpc GetMenuItem(GetMenuItemRequest) returns (kueater.data.types.MenuCardProps);
+    rpc GetStall(GetStallRequest) returns (kueater.data.types.StallDataTypeProps);
     // Get items based on stall
-    rpc StallItems(StallItemsRequest) return (kueater.data.types.MenuCardGridConstructor);
+    rpc StallItems(StallItemsRequest) returns (kueater.data.types.MenuCardGridConstructor);
 
     // Home page
     rpc HomeTopMenu(kueater.Empty) returns (kueater.data.home.TopMenuProps);
