@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package kueater.data.types;
+
+
+// The frontend components are reflected here:
+// MenuCard
+
+message MenuCardProps {
+    string uuid = 1;
+    string name = 2;
+    double price = 3;
+    int32 likes = 4;
+    int32 dislikes = 5;
+    string stall_name = 6;
+    string stall_lock = 7;
+    string image_url = 8;
+
+    // reasoning
+    optional float score = 51;
+    optional string reason = 52;
+
+    // booleans
+    bool liked = 101;
+    bool disliked = 102;
+    bool saved = 103;
+}
+
+// StallDataType
+
+message StallDataTypeProps {
+    string uuid = 1;
+    int32 rank = 2;
+    string name = 3;
+    string image_url = 4;
+    string location = 5;
+    string operatingHours = 6;
+    string priceRange = 7;
+    string tags = 8;
+    int32 reviews = 9;
+    int32 likes = 10;
+    float rating = 11;
+
+    // booleans
+    bool saved = 101;
+}
+
+// Review
+
+message ReviewCardProps {
+    string uuid = 1;
+    string username = 2;
+    string role = 3;
+    string gender = 4;
+    string created_at = 5;
+    int32 stars = 6;
+    string content = 7;
+}
+
+// MenuCardHorizontal
+
+message MenuCardHorizontalConstructor {
+    repeated MenuCardProps menus = 1;
+    optional string title = 2;
+}
+
+// MenuCardGrid
+
+message MenuCardGridConstructor {
+    repeated MenuCardProps data = 1;
+}
+
+// StallCardList
+
+message StallCardListConstructor {
+    repeated StallDataTypeProps data = 1;
+}

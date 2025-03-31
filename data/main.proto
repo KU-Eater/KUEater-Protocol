@@ -4,15 +4,23 @@ package kueater.data;
 
 import "domain.proto";
 import "shared.proto";
+import "data/types.proto";
 import "data/home.proto";
 import "data/search.proto";
 import "data/review.proto";
 import "data/activity.proto";
 
 service KUEaterBackend {
-    rpc GetMenuItem(GetMenuRequest) returns (GetMenuResponse);
-    rpc GetStall(GetStallRequest) returns (GetStallResponse);
-    rpc GetReview(GetReviewRequest) returns (GetReviewResponse);
+    // After login
+    rpc AccountReadiness(AccountReadinessRequest) returns (AccountReadinessResponse);
+    rpc CreateAccount(CreateAccountRequest) returns (kueater.Empty);    // In case of never have completed a profile
+    rpc GetPreferences(GetPreferencesRequest) returns (GetPreferencesResponse);
+    
+    // Generic fetches
+    rpc GetMenuItem(GetMenuItemRequest) return (kueater.data.types.MenuCardProps);
+    rpc GetStall(GetStallRequest) return (kueater.data.types.StallDataTypeProps);
+    // Get items based on stall
+    rpc StallItems(StallItemsRequest) return (kueater.data.types.MenuCardGridConstructor);
 
     // Home page
     rpc HomeTopMenu(kueater.Empty) returns (kueater.data.home.TopMenuProps);
@@ -28,38 +36,101 @@ service KUEaterBackend {
     rpc ListReviews(kueater.data.review.ListReviewsRequest) returns (kueater.data.review.ListReviewsResponse);
     rpc PostReview(kueater.data.review.PostReviewRequest) returns (kueater.data.review.PostReviewResponse);
 
+    // Saved
+    rpc SavedItems(SavedItemsRequest) returns (SavedItemsResponse);
+    rpc SavedStalls(SavedStallsRequest) returns (SavedStallsResponse);
+
     // Tally activities
-    rpc LikeItem(kueater.data.activity.LikeItemMsg) returns (kueater.Empty)
-    rpc DislikeItem(kueater.data.activity.DislikeItemMsg) returns (kueater.Empty)
-    rpc SaveItem(kueater.data.activity.SaveItemMsg) returns (kueater.Empty)
-    rpc LikeStall(kueater.data.activity.LikeStallMsg) returns (kueater.Empty)
-    rpc SaveStall(kueater.data.activity.SaveStallMsg) returns (kueater.Empty)
+    rpc LikeItem(kueater.data.activity.LikeItemMsg) returns (kueater.Empty);
+    rpc DislikeItem(kueater.data.activity.DislikeItemMsg) returns (kueater.Empty);
+    rpc SaveItem(kueater.data.activity.SaveItemMsg) returns (kueater.Empty);
+    rpc LikeStall(kueater.data.activity.LikeStallMsg) returns (kueater.Empty);
+    rpc SaveStall(kueater.data.activity.SaveStallMsg) returns (kueater.Empty);
 
-    
+    // Saving profile & preferences
+    rpc SaveProfile(SaveProfileRequest) returns (kueater.Empty);
+    rpc SavePreferences(SavePreferencesRequest) returns (kueater.Empty);
 }
 
-// Singular Item Lookups
-
-message GetMenuRequest {
-    string uuid = 1;
-}
-
-message GetMenuResponse {
-    kueater.MenuItem item = 1;
+message GetMenuItemRequest {
+    string item_id = 1;
 }
 
 message GetStallRequest {
-    string uuid = 1;
+    string stall_id = 1;
 }
 
-message GetStallResponse {
-    kueater.Stall stall = 1;
+message StallItemsRequest {
+    string stall_id = 1;
 }
 
-message GetReviewRequest {
-    string uuid = 1;
+message SavedItemsRequest {
+    string user_id = 1;
 }
 
-message GetReviewResponse {
-    kueater.Review review = 1;
+message SavedItemsResponse {
+    repeated kueater.data.types.MenuCardProps menus = 1;
+}
+
+message SavedStallsRequest {
+    string user_id = 1;
+}
+
+message SavedStallsResponse {
+    repeated kueater.data.types.StallDataTypeProps stalls = 1;
+}
+
+// After login,
+
+message AccountReadinessRequest {
+    string user_id = 1;
+}
+
+message AccountReadinessResponse {
+    bool ready = 1;
+}
+
+message CreateAccountRequest {
+    string user_id = 1;
+    string name = 2;
+    string gender = 3;
+    string role = 4;
+    repeated string dietary = 5;
+    repeated string allergies = 6;
+    repeated string cuisines = 7;
+    repeated string dislikes = 8;
+    repeated string likes = 9;
+}
+
+message GetPreferencesRequest {
+    string user_id = 1;
+}
+
+message GetPreferencesResponse {
+    string user_id = 1;
+    string email = 2;
+    string username = 3;
+    string gender = 4;
+    string role = 5;
+    repeated string dietary = 6;
+    repeated string allergies = 7;
+    repeated string cuisines = 8;
+    repeated string dislikes = 9;
+    repeated string likes = 10;
+}
+
+message SaveProfileRequest {
+    string user_id = 1;
+    string username = 2;
+    string gender = 3;
+    string role = 4;
+}
+
+message SavePreferencesRequest {
+    string user_id = 1;
+    repeated string dietary = 6;
+    repeated string allergies = 7;
+    repeated string cuisines = 8;
+    repeated string dislikes = 9;
+    repeated string likes = 10;
 }
