@@ -1,4 +1,5 @@
 // Tally acts
+syntax = "proto3";
 
 package kueater.data.activity;
 
