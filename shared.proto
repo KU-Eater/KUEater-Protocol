@@ -6,3 +6,5 @@ message LocalizedString {
     string content = 1;
     string locale = 2;
 }
+
+message Empty {}

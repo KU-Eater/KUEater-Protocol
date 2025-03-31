@@ -1,0 +1,30 @@
+// Tally acts
+
+package kueater.data.activity;
+
+import "shared.proto";
+
+message LikeItemMsg {
+    string id = 1;
+    bool b = 2;
+}
+
+message DislikeItemMsg {
+    string id = 1;
+    bool b = 2;
+}
+
+message SaveItemMsg {
+    string id = 1;
+    bool b = 2;
+}
+
+message LikeStallMsg {
+    string id = 1;
+    bool b = 2;
+}
+
+message SaveStallMsg {
+    string id = 1;
+    bool b = 2;
+}

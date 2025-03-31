@@ -1,3 +1,5 @@
+// DEPRECATED; Use home.proto
+
 // This proto file is for index page
 
 syntax = "proto3";
@@ -13,6 +15,7 @@ enum SortStrategy {
     REVIEW_SCORE = 2;       // best review score + review count
 }
 
+// The messages here are frontend-reflected components
 message CardedMenuItem {
     kueater.MenuItem item = 1;
     kueater.LocalizedString stall_name = 2;

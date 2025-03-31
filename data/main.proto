@@ -3,19 +3,23 @@ syntax = "proto3";
 package kueater.data;
 
 import "domain.proto";
-import "data/index.proto";
+import "shared.proto";
+import "data/home.proto";
 import "data/search.proto";
 import "data/review.proto";
+import "data/activity.proto";
 
 service KUEaterBackend {
     rpc GetMenuItem(GetMenuRequest) returns (GetMenuResponse);
     rpc GetStall(GetStallRequest) returns (GetStallResponse);
     rpc GetReview(GetReviewRequest) returns (GetReviewResponse);
 
-    // Index page
-    rpc IndexGetMenuListings(kueater.data.index.GetMenuListingsRequest) returns (kueater.data.index.GetMenuListingsResponse);
-    rpc IndexTopMenu(kueater.data.index.TopMenuRequest) returns (kueater.data.index.TopMenu);
-    rpc IndexTopStall(kueater.data.index.TopStallRequest) returns (kueater.data.index.TopStall);
+    // Home page
+    rpc HomeTopMenu(kueater.Empty) returns (kueater.data.home.TopMenuProps);
+    rpc HomeTopStall(kueater.Empty) returns (kueater.data.home.TopStallProps);
+    rpc HomeInferLike(kueater.data.home.InferLikeMsg) returns (kueater.data.home.InferLikeProps);
+    rpc HomeForYou(kueater.data.home.ForYouMsg) returns (kueater.data.home.ForYouProps);
+    rpc HomeGetRecommendations(kueater.data.home.GetRecommendationsMsg) returns (kueater.data.home.RecommendationsList);
 
     // Search page
     rpc Search(kueater.data.search.SearchRequest) returns (kueater.data.search.SearchResponse);
@@ -23,6 +27,15 @@ service KUEaterBackend {
     // Reviews
     rpc ListReviews(kueater.data.review.ListReviewsRequest) returns (kueater.data.review.ListReviewsResponse);
     rpc PostReview(kueater.data.review.PostReviewRequest) returns (kueater.data.review.PostReviewResponse);
+
+    // Tally activities
+    rpc LikeItem(kueater.data.activity.LikeItemMsg) returns (kueater.Empty)
+    rpc DislikeItem(kueater.data.activity.DislikeItemMsg) returns (kueater.Empty)
+    rpc SaveItem(kueater.data.activity.SaveItemMsg) returns (kueater.Empty)
+    rpc LikeStall(kueater.data.activity.LikeStallMsg) returns (kueater.Empty)
+    rpc SaveStall(kueater.data.activity.SaveStallMsg) returns (kueater.Empty)
+
+    
 }
 
 // Singular Item Lookups

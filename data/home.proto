@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package kueater.data.home;
+
+import "shared.proto";
+import "domain.proto";
+
+// The frontend components are reflected here:
+// MenuCard
+message MenuCardProps {
+    string uuid = 1;
+    string name = 2;
+    double price = 3;
+    int32 likes = 4;
+    int32 dislikes = 5;
+    string stall_name = 6;
+    string stall_lock = 7;
+    string image_url = 8;
+}
+
+// StallDataType
+message StallDataTypeProps {
+    string uuid = 1;
+    int32 rank = 2;
+    string name = 3;
+    string image_url = 4;
+    string location = 5;
+    string operatingHours = 6;
+    string priceRange = 7;
+    string tags = 8;
+    int32 reviews = 9;
+    int32 likes = 10;
+    float rating = 11;
+}
+
+// The frontend specific to homepage
+message MenuCardHorizontalConstructor {
+    repeated MenuCardProps menus = 1;
+    optional string title = 2;
+    // another optional ReactNode object I cannot replicate here
+}
+
+// Messages on homepage
+message TopMenuProps {
+    MenuCardHorizontalConstructor props = 1;
+}
+
+message TopStallProps {
+    MenuCardHorizontalConstructor props = 1;
+}
+
+message InferLikeMsg {
+    string user_id = 1;
+    string word = 2;    // Backend has common words; the liked dishes preferences
+}
+message InferLikeProps {
+    MenuCardHorizontalConstructor props = 1;
+}
+
+// Get 10 or so random recommendations where score > 10
+message ForYouMsg {
+    string user_id = 1;
+}
+message ForYouProps {
+    MenuCardHorizontalConstructor props = 1;
+}
+
+// Recommendations, we can retreive from database by
+// ORDER BY score DESC, id ASC
+// then use condition (score < k OR (score = k AND id > idx)) to page the recommendations.
+message GetRecommendationsMsg {
+    string user_id = 1;
+    string index_token = 2;
+    string score_token = 3;
+    int32 page_limit = 4;
+}
+message RecommendationsList {
+    repeated MenuCardProps menu = 1;
+    string next_index_token = 2;
+    string score_token = 3;
+}
