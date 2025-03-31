@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package kueater.auth;
+
+service AuthService {
+    // For exchanging Google auth code with token and id
+    rpc AuthProcess(AuthProcessRequest) returns (AuthProcessResponse);
+
+    // For signing off the platform
+    rpc LogoutProcess(LogoutProcessRequest) returns (LogoutProcessResponse);
+}
+
+// Frontend sends auth code to where?
+message AuthProcessRequest {
+    string code = 1;
+}
+
+// Backend sends back the access token and user id
+message AuthProcessResponse {
+    string token = 1;
+    string user_id = 2;
+}
+
+// Frontend sends to logout
+message LogoutProcessRequest {
+    string user_id = 1;
+}
+
+message LogoutProcessResponse {}
