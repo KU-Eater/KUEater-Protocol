@@ -12,7 +12,7 @@ message TopMenuProps {
 }
 
 message TopStallProps {
-    kueater.data.types.MenuCardHorizontalConstructor props = 1;
+    kueater.data.types.StallCardListConstructor props = 1;
 }
 
 message InferLikeMsg {
