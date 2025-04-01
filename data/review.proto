@@ -35,9 +35,9 @@ message ByStarGroup {
 message RatingSummary {
     double avg_stall_rating = 1;
     int32 total_reviews = 2;
-    int32 total_likes = 3;
-    int32 total_menu_saved = 4;
-    int32 total_stall_saved = 5;
+    int32 total_likes = 3;          // How many likes the stall garnered (retrieved from menu-stall relationship)
+    int32 total_menu_saved = 4;     // How many times people saved the menu?
+    int32 total_stall_saved = 5;    // How many times people saved the stall?
     ByStarGroup by_stars = 6;
 }
 

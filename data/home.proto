@@ -33,7 +33,7 @@ message ForYouProps {
 
 // Recommendations, we can retreive from database by
 // ORDER BY score DESC, id ASC
-// then use condition (score < k OR (score = k AND id > idx)) to page the recommendations.
+// then use condition to page the recommendations.
 message GetRecommendationsMsg {
     string user_id = 1;
     string index_token = 2;
