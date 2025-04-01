@@ -16,6 +16,7 @@ message MenuCardProps {
     string stall_name = 6;
     string stall_lock = 7;
     string image_url = 8;
+    string stall_id = 9;
 
     // reasoning from recommendations table - omit if not available for user
     optional float score = 51;
